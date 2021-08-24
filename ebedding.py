@@ -35,11 +35,11 @@ if not os.path.exists(embedding_cache_path):
     with open(dataset_path, encoding='utf8') as fIn:
         reader = csv.DictReader(fIn, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
         for row in reader:
-            corpus_sentences.add(row['question1'])
+            corpus_sentences.add(row[''])
             if len(corpus_sentences) >= max_corpus_size:
                 break
 
-            corpus_sentences.add(row['question2'])
+            corpus_sentences.add(row[''])
             if len(corpus_sentences) >= max_corpus_size:
                 break
 
@@ -57,16 +57,7 @@ else:
         corpus_sentences = cache_data['sentences']
         corpus_embeddings = cache_data['embeddings']
 
-### Create the FAISS index
-print("Start creating FAISS index")
-# First, we need to normalize vectors to unit length
-corpus_embeddings = corpus_embeddings / np.linalg.norm(corpus_embeddings, axis=1)[:, None]
 
-# Then we train the index to find a suitable clustering
-index.train(corpus_embeddings)
-
-# Finally we add all embeddings to the index
-index.add(corpus_embeddings)
 
 
 
