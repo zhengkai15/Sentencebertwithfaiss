@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTranformer, util
-import os 
+import os
 import csv
 import pickle
 import time
@@ -7,7 +7,7 @@ import faiss
 import numpy as np
 import json
 if __name__ == '__main__':
-	
+
 def milvus_search(str_query)
 	model_name = 'chinese_wwm_ext_L-12_H-768_A-12'
 	model = SentenceTransformer(model_name)
@@ -64,24 +64,24 @@ def milvus_search(str_query)
 
 	import numpy as np
 	from milvus import Milvus, IndexType, MetricType
-	 
+
 	# 初始化一个Milvus类，以后所有的操作都是通过milvus来的
 	host = 'localhost'
 	port = '19530'
 	milvus = Milvus(host,port)
-	collection_name = "col_2" 
+	collection_name = "col_2"
 	# 连接到服务器，注意端口映射，要和启动docker时设置的端口一致
 
-	 
+
 	# 向量个数
 	num_vec = 16370
 	# 向量维度
 	vec_dim = 768
 
 	collection_param = {
-	    'collection_name': collection_name, 
-	    'dimension':vec_dim, 
-	    'index_file_size':1024, 
+	    'collection_name': collection_name,
+	    'dimension':vec_dim,
+	    'index_file_size':1024,
 	    'metric_type':MetricType.IP}
 	milvus.create_collection(collection_param)
 
@@ -120,7 +120,7 @@ def milvus_search(str_query)
 
 	   # print results
 	    # print(results)
-	    count = 1
+	    count = -1
 	    for score,idx in zip(results.distance_array,results.id_array):
 	    	count += 1
 	    	print(score,idx)
